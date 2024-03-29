@@ -16,5 +16,5 @@ def hello_world():
  
 # main driver function
 if __name__ == "__main__":
-  logging.info("Flask App Started")
+  #logging.info("Flask App Started")
   flask_app.run(host="0.0.0.0", port=8000)
