@@ -81,3 +81,6 @@ jobs:
           app-name: 'jaimeensimpleflask'
           slot-name: 'Production'
           
+if __name__ == "__main__":
+  logging.info("Flask App Started")
+  flask_app.run(host="0.0.0.0", port=8000)
