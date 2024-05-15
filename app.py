@@ -89,7 +89,7 @@ def upload_file():
                     savedimage=pil_image.save(image_path)
                     container_client.upload_blob(image_path, savedimage)
         except Exception as e:
-            print(e)
+            app.logger.info(e)
             print("Ignoring duplicate filenames") # ignore duplicate filenames
         
     return redirect('/')
