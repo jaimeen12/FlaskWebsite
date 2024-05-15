@@ -1,5 +1,4 @@
 Flask
 azure.storage.blob
 fitz
-io
 PIL
