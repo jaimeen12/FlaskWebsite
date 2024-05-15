@@ -1,4 +1,7 @@
 from flask import Flask, request, redirect
+import fitz
+import io
+from PIL import Image
 
 import os   
 from azure.storage.blob import BlobServiceClient
@@ -62,6 +65,28 @@ def upload_file():
         try:
             container_client.upload_blob(file.filename, file) # upload the file to the container using the filename as the blob name
             filenames += file.filename + "<br /> "
+            pdf_file = fitz.open(file)
+
+            for page_number in range(len(pdf_file)): 
+                page=pdf_file[page_number]
+                image_list = page.get_images()
+                print(image_list)
+                
+                for image_index, img in enumerate(page.get_images(),start=1):
+                    print(image_index)
+                    xref = img[0] 
+                    # extract image bytes 
+                    base_image = pdf_file.extract_image(xref)
+                    image_bytes = base_image["image"]
+                    # get image extension
+                    image_ext = base_image["ext"]
+                    
+            # Create a PIL Image object from the image bytes
+                    pil_image = Image.open(io.BytesIO(image_bytes))
+
+                    # Save the image to disk
+                    image_path = f"image_{page_number}_{image_index}.{image_ext}"
+                    pil_image.save(image_path)
         except Exception as e:
             print(e)
             print("Ignoring duplicate filenames") # ignore duplicate filenames
