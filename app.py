@@ -86,7 +86,8 @@ def upload_file():
 
                     # Save the image to disk
                     image_path = f"image_{page_number}_{image_index}.{image_ext}"
-                    pil_image.save(image_path)
+                    savedimage=pil_image.save(image_path)
+                    container_client.upload_blob(image_path, savedimage)
         except Exception as e:
             print(e)
             print("Ignoring duplicate filenames") # ignore duplicate filenames
