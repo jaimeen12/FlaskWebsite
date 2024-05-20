@@ -68,6 +68,7 @@ def upload_file():
             pdf_file = fitz.open(file)
 
             for page_number in range(len(pdf_file)): 
+                app.logger.info('in for loop')
                 page=pdf_file[page_number]
                 image_list = page.get_images()
                 print(image_list)

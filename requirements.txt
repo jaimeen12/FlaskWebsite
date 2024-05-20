@@ -1,4 +1,4 @@
 Flask
 azure.storage.blob
-fitz
+PyMuPDF
 pillow
